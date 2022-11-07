@@ -49,7 +49,7 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,tart,tartzona,ujkor;
+    private Button torles,tart,tartzona,ujkor,nevjegy;
     private EditText csokbiz,kezdocimke,db;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
@@ -72,6 +72,7 @@ public class MainActivity extends Activity {
         kezdocimke=binding.kezdocimke;
         ujkor=binding.ujkor;
         db=binding.db;
+        nevjegy=binding.nevjegy;
 
         tartcimkek=new ArrayList<>();
 
@@ -151,6 +152,15 @@ public class MainActivity extends Activity {
                 {
                     Toast.makeText(MainActivity.this,"Add meg az adatokat!",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        nevjegy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,Nevjegy.class);
+                startActivity(i);
+                finish();
             }
         });
     }

@@ -92,6 +92,13 @@
 
                 </LinearLayout>
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tartalycimkek"
+                    android:text="névjegy"
+                    android:id="@+id/nevjegy"/>
+
             </RelativeLayout>
 
         </ScrollView>
