@@ -18,50 +18,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="csokibiz"
-                    android:id="@+id/szoveg"
-                    android:gravity="center"/>
+                    android:id="@+id/tart"
+                    android:hint="tartalékos"
+                    android:inputType="number"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/torlest"
+                    android:text="törlés" />
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/csokbiz"
                     android:hint="csokibiz"
-                    android:layout_below="@id/szoveg"
                     android:inputType="number"/>
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/torles"
-                    android:layout_below="@id/csokbiz"
                     android:text="törlés" />
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tart"
-                    android:layout_below="@id/torles"
-                    android:text="tartalékos"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tart"
-                    android:text="tartalékos zóna"
-                    android:id="@+id/tartzona"/>
 
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tartzona"
                     android:id="@+id/kezdocimke"
                     android:inputType="number"
                     android:hint="kezdőcímke"/>
@@ -69,7 +59,6 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/kezdocimke"
                     android:id="@+id/db"
                     android:inputType="number"
                     android:hint="db"/>
@@ -77,7 +66,6 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/db"
                     android:id="@+id/ujkor"
                     android:text="új kör"/>
 
@@ -85,8 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tartalycimkek"
-                    android:orientation="vertical"
-                    android:layout_below="@id/ujkor">
+                    android:orientation="vertical">
 
 
 
@@ -95,11 +82,10 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tartalycimkek"
                     android:text="névjegy"
                     android:id="@+id/nevjegy"/>
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </ScrollView>
 

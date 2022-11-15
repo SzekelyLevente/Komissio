@@ -49,8 +49,8 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,tart,tartzona,ujkor,nevjegy;
-    private EditText csokbiz,kezdocimke,db;
+    private Button torles,torlest,ujkor,nevjegy;
+    private EditText csokbiz,kezdocimke,db,tart;
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
     //private ImageView qr;
@@ -65,8 +65,8 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         torles=binding.torles;
+        torlest=binding.torlest;
         tart=binding.tart;
-        tartzona=binding.tartzona;
         csokbiz=binding.csokbiz;
         tartalycimkek=binding.tartalycimkek;
         kezdocimke=binding.kezdocimke;
@@ -80,6 +80,7 @@ public class MainActivity extends Activity {
         editor = sharedPref.edit();
 
         csokbiz.setText(sharedPref.getString("csokibiz",""));
+        tart.setText(sharedPref.getString("tartalekos",""));
         db.setText(sharedPref.getString("db",""));
 
         /*
@@ -100,21 +101,10 @@ public class MainActivity extends Activity {
             }
         });
 
-        tart.setOnClickListener(new View.OnClickListener() {
+        torlest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(MainActivity.this,Tartalekos.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        tartzona.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(MainActivity.this,TartalekosZona.class);
-                startActivity(i);
-                finish();
+                tart.setText("");
             }
         });
 
@@ -127,6 +117,24 @@ public class MainActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 editor.putString("csokibiz", charSequence.toString());
+                editor.apply();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        tart.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                editor.putString("tartalekos", charSequence.toString());
                 editor.apply();
             }
 
@@ -181,7 +189,8 @@ public class MainActivity extends Activity {
             t.setText("94.00"+pontelotti+"."+pontutani);
             t.setGravity(Gravity.CENTER);
             iv.setImageBitmap(tc.getQr());
-            int i2=i;
+            char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
+            int i2=Integer.parseInt(rszam+"");
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

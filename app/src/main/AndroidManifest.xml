@@ -31,14 +31,6 @@
             android:exported="false"
             android:label="@string/title_activity_nevjegy"></activity>
         <activity
-            android:name=".TartalekosZona"
-            android:exported="false"
-            android:label="@string/title_activity_tartalekos_zona" />
-        <activity
-            android:name=".Tartalekos"
-            android:exported="false"
-            android:label="@string/title_activity_tartalekos" />
-        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name">
