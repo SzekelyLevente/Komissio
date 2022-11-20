@@ -55,7 +55,6 @@ public class MainActivity extends Activity {
     private SharedPreferences.Editor editor;
     //private ImageView qr;
     private LinearLayout tartalycimkek;
-    private ArrayList<Tartalycimke> tartcimkek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +72,6 @@ public class MainActivity extends Activity {
         ujkor=binding.ujkor;
         db=binding.db;
         nevjegy=binding.nevjegy;
-
-        tartcimkek=new ArrayList<>();
 
         sharedPref = this.getSharedPreferences("kom",Context.MODE_PRIVATE);
         editor = sharedPref.edit();
@@ -147,7 +144,7 @@ public class MainActivity extends Activity {
         ujkor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!kezdocimke.getText().toString().equals("") || !db.getText().toString().equals(""))
+                if(!kezdocimke.getText().toString().equals("") && !db.getText().toString().equals(""))
                 {
                     editor.putString("kezdocimke", kezdocimke.getText().toString());
                     editor.putString("db",db.getText().toString());
@@ -179,27 +176,19 @@ public class MainActivity extends Activity {
         int pontutani=Integer.parseInt(kc.charAt(kc.length()-1)+"");
         int pontelotti=Integer.parseInt(kc.substring(0,kc.length()-1));
         tartalycimkek.removeAllViews();
-        tartcimkek.clear();
         for (int i=0; i<db; i++)
         {
-            Tartalycimke tc=new Tartalycimke("9400"+pontelotti+""+pontutani);
-            tartcimkek.add(tc);
-            ImageView iv=new ImageView(MainActivity.this);
-            TextView t=new TextView(MainActivity.this);
-            t.setText("94.00"+pontelotti+"."+pontutani);
-            t.setGravity(Gravity.CENTER);
-            iv.setImageBitmap(tc.getQr());
+            Tartalycimke tc=new Tartalycimke("9400"+pontelotti+""+pontutani,"94.00"+pontelotti+"."+pontutani,MainActivity.this);
             char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
             int i2=Integer.parseInt(rszam+"");
-            iv.setOnClickListener(new View.OnClickListener() {
+            tc.getIv().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     csokbiz.setText(csokbiz.getText().toString()+""+i2);
                     Toast.makeText(MainActivity.this,"Hozzáadva: "+i2,Toast.LENGTH_SHORT).show();
                 }
             });
-            tartalycimkek.addView(iv);
-            tartalycimkek.addView(t);
+            tartalycimkek.addView(tc);
             pontelotti++;
             pontutani-=3;
             if (pontutani<0)
