@@ -55,6 +55,7 @@ public class MainActivity extends Activity {
     private SharedPreferences.Editor editor;
     //private ImageView qr;
     private LinearLayout tartalycimkek;
+    private String csokbizs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,8 @@ public class MainActivity extends Activity {
         sharedPref = this.getSharedPreferences("kom",Context.MODE_PRIVATE);
         editor = sharedPref.edit();
 
-        csokbiz.setText(sharedPref.getString("csokibiz",""));
+        csokbizs=sharedPref.getString("csokibiz","");
+        csokbiz.setText(csokbizs);
         tart.setText(sharedPref.getString("tartalekos",""));
         db.setText(sharedPref.getString("db",""));
 
@@ -113,7 +115,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                editor.putString("csokibiz", charSequence.toString());
+                csokbizs=charSequence.toString();
+                editor.putString("csokibiz", csokbizs);
                 editor.apply();
             }
 
@@ -184,8 +187,15 @@ public class MainActivity extends Activity {
             tc.getIv().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    csokbiz.setText(csokbiz.getText().toString()+""+i2);
-                    Toast.makeText(MainActivity.this,"Hozzáadva: "+i2,Toast.LENGTH_SHORT).show();
+                    if(csokbizs.contains(i2+""))
+                    {
+                        Toast.makeText(MainActivity.this,"Már létezik itt: "+(csokbizs.indexOf(i2+"")+1),Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        csokbiz.setText(csokbiz.getText().toString()+""+i2);
+                        Toast.makeText(MainActivity.this,"Hozzáadva: "+i2,Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             tartalycimkek.addView(tc);
