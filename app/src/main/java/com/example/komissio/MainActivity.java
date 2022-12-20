@@ -51,11 +51,13 @@ public class MainActivity extends Activity {
     private ActivityMainBinding binding;
     private Button torles,torlest,ujkor,nevjegy;
     private EditText csokbiz,kezdocimke,db,tart;
-    private SharedPreferences sharedPref;
-    private SharedPreferences.Editor editor;
     //private ImageView qr;
     private LinearLayout tartalycimkek;
     private String csokbizs;
+    private String tarts;
+    
+    private IRepository repository;
+    private ILogic logic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +76,14 @@ public class MainActivity extends Activity {
         db=binding.db;
         nevjegy=binding.nevjegy;
 
-        sharedPref = this.getSharedPreferences("kom",Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
+        repository=new Repository(this);
+        logic=new Logic(repository);
 
-        csokbizs=sharedPref.getString("csokibiz","");
+        csokbizs= logic.Read("csokibiz");
         csokbiz.setText(csokbizs);
-        tart.setText(sharedPref.getString("tartalekos",""));
-        db.setText(sharedPref.getString("db",""));
+        tarts=logic.Read("tartalekos");
+        tart.setText(tarts);
+        db.setText(logic.Read("db"));
 
         /*
         editor.putString("kezdocimke","56675401");
@@ -88,9 +91,9 @@ public class MainActivity extends Activity {
 
          */
 
-        if(sharedPref.contains("kezdocimke") && sharedPref.contains("db"))
+        if(logic.Contains("kezdocimke") && logic.Contains("db"))
         {
-            tartalyGyartas(sharedPref.getString("kezdocimke",""),Integer.parseInt(db.getText().toString()));
+            tartalyGyartas(logic.Read("kezdocimke"),Integer.parseInt(logic.Read("db")));
         }
 
         torles.setOnClickListener(new View.OnClickListener() {
@@ -116,8 +119,7 @@ public class MainActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 csokbizs=charSequence.toString();
-                editor.putString("csokibiz", csokbizs);
-                editor.apply();
+                logic.Update("csokibiz",csokbizs);
             }
 
             @Override
@@ -134,8 +136,8 @@ public class MainActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                editor.putString("tartalekos", charSequence.toString());
-                editor.apply();
+                tarts=charSequence.toString();
+                logic.Update("tartalekos",tarts);
             }
 
             @Override
@@ -149,12 +151,18 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 if(!kezdocimke.getText().toString().equals("") && !db.getText().toString().equals(""))
                 {
-                    editor.putString("kezdocimke", kezdocimke.getText().toString());
-                    editor.putString("db",db.getText().toString());
-                    editor.apply();
-                    csokbiz.setText("");
-                    tartalyGyartas(kezdocimke.getText().toString(), Integer.parseInt(db.getText().toString()));
-                    kezdocimke.setText("");
+                    try
+                    {
+                        logic.Update("kezdocimke",kezdocimke.getText().toString());
+                        logic.Update("db",db.getText().toString());
+                        csokbiz.setText("");
+                        tartalyGyartas(kezdocimke.getText().toString(), Integer.parseInt(db.getText().toString()));
+                        kezdocimke.setText("");
+                    }
+                    catch(Exception ex)
+                    {
+                        Toast.makeText(MainActivity.this,ex.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else
                 {
