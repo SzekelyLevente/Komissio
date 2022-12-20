@@ -51,10 +51,11 @@ public class MainActivity extends Activity {
     private ActivityMainBinding binding;
     private Button torles,torlest,ujkor,nevjegy;
     private EditText csokbiz,kezdocimke,db,tart;
-    //private ImageView qr;
     private LinearLayout tartalycimkek;
+
     private String csokbizs;
     private String tarts;
+    private ArrayList<Tartalycimke> tcimkek;
     
     private IRepository repository;
     private ILogic logic;
@@ -78,6 +79,8 @@ public class MainActivity extends Activity {
 
         repository=new Repository(this);
         logic=new Logic(repository);
+
+        tcimkek=new ArrayList<>();
 
         csokbizs= logic.Read("csokibiz");
         csokbiz.setText(csokbizs);
@@ -187,26 +190,14 @@ public class MainActivity extends Activity {
         int pontutani=Integer.parseInt(kc.charAt(kc.length()-1)+"");
         int pontelotti=Integer.parseInt(kc.substring(0,kc.length()-1));
         tartalycimkek.removeAllViews();
+        tcimkek.clear();
         for (int i=0; i<db; i++)
         {
             Tartalycimke tc=new Tartalycimke("9400"+pontelotti+""+pontutani,"94.00"+pontelotti+"."+pontutani,MainActivity.this);
             char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
             int i2=Integer.parseInt(rszam+"");
-            tc.getIv().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(csokbizs.contains(i2+""))
-                    {
-                        Toast.makeText(MainActivity.this,"Már létezik itt: "+(csokbizs.indexOf(i2+"")+1),Toast.LENGTH_SHORT).show();
-                    }
-                    else
-                    {
-                        csokbiz.setText(csokbiz.getText().toString()+""+i2);
-                        Toast.makeText(MainActivity.this,"Hozzáadva: "+i2,Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            tartalycimkek.addView(tc);
+            tcimkek.add(tc);
+            tartalycimkek.addView(gombGyartas(i2));
             pontelotti++;
             pontutani-=3;
             if (pontutani<0)
@@ -214,5 +205,24 @@ public class MainActivity extends Activity {
                 pontutani+=10;
             }
         }
+    }
+
+    public Button gombGyartas(int szam)
+    {
+        Button btn=new Button(MainActivity.this);
+        btn.setText(szam+"");
+        btn.setGravity(Gravity.CENTER);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,TartalycimkeView.class);
+                i.putExtra("ertek",tcimkek.get(szam).getErtek());
+                i.putExtra("szoveg",tcimkek.get(szam).getTv().getText().toString());
+                i.putExtra("szam",szam);
+                startActivity(i);
+                finish();
+            }
+        });
+        return btn;
     }
 }

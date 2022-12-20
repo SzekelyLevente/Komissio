@@ -8,4 +8,5 @@
     <string name="title_activity_tartalekos">Tartalekos</string>
     <string name="title_activity_tartalekos_zona">TartalekosZona</string>
     <string name="title_activity_nevjegy">Nevjegy</string>
+    <string name="title_activity_tartalycimke_view">TartalycimkeView</string>
 </resources>

@@ -26,10 +26,12 @@ public class Tartalycimke extends LinearLayout{
 
     private ImageView iv;
     private TextView tv;
+    private String ertek;
 
     public Tartalycimke(String ertek,String szoveg,Context context)
     {
         super(context);
+        this.ertek=ertek;
         this.setOrientation(LinearLayout.VERTICAL);
         iv=new ImageView(context);
         tv=new TextView(context);
@@ -37,7 +39,7 @@ public class Tartalycimke extends LinearLayout{
         tv.setGravity(Gravity.CENTER);
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
-            BitMatrix bitMatrix = writer.encode(ertek, BarcodeFormat.QR_CODE, 256, 256);
+            BitMatrix bitMatrix = writer.encode(ertek, BarcodeFormat.QR_CODE, 512, 512);
             BarcodeEncoder mEncoder = new BarcodeEncoder();
             Bitmap mBitmap = mEncoder.createBitmap(bitMatrix);
             iv.setImageBitmap(mBitmap);
@@ -56,5 +58,9 @@ public class Tartalycimke extends LinearLayout{
 
     public TextView getTv() {
         return this.tv;
+    }
+
+    public String getErtek() {
+        return ertek;
     }
 }
