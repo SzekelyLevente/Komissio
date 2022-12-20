@@ -24,14 +24,7 @@ public class Logic implements ILogic{
 
     @Override
     public boolean Contains(String kulcs) {
-        try
-        {
-            this.repo.Read(kulcs);
-            return true;
-        }
-        catch(Exception ex)
-        {
-            return false;
-        }
+        String ertek=this.repo.Read(kulcs);
+        return (ertek==""?false:true);
     }
 }
