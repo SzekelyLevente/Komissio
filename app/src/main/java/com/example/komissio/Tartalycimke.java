@@ -22,42 +22,29 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-public class Tartalycimke extends LinearLayout{
+public class Tartalycimke{
 
-    private ImageView iv;
-    private TextView tv;
     private String ertek;
 
-    public Tartalycimke(String ertek,String szoveg,Context context)
+    public Tartalycimke(String ertek)
     {
-        super(context);
         this.ertek=ertek;
-        this.setOrientation(LinearLayout.VERTICAL);
-        iv=new ImageView(context);
-        tv=new TextView(context);
-        tv.setText(szoveg);
-        tv.setGravity(Gravity.CENTER);
+    }
+
+    public ImageView createQR(Context ctx)
+    {
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix bitMatrix = writer.encode(ertek, BarcodeFormat.QR_CODE, 512, 512);
             BarcodeEncoder mEncoder = new BarcodeEncoder();
             Bitmap mBitmap = mEncoder.createBitmap(bitMatrix);
+            ImageView iv=new ImageView(ctx);
             iv.setImageBitmap(mBitmap);
+            return iv;
         } catch (WriterException e) {
             e.printStackTrace();
+            return null;
         }
-
-        this.addView(iv);
-        this.addView(tv);
-
-    }
-
-    public ImageView getIv() {
-        return this.iv;
-    }
-
-    public TextView getTv() {
-        return this.tv;
     }
 
     public String getErtek() {

@@ -22,7 +22,6 @@ public class TartalycimkeView extends Activity {
     private ILogic logic;
 
     private int szam;
-    private String szoveg;
     private String ertek;
     private String csokibiz;
 
@@ -41,12 +40,11 @@ public class TartalycimkeView extends Activity {
         logic=new Logic(repository);
 
         ertek=getIntent().getStringExtra("ertek");
-        szoveg=getIntent().getStringExtra("szoveg");
         szam=getIntent().getIntExtra("szam",-1);
         csokibiz=logic.Read("csokibiz");
 
-        tartalycimke=new Tartalycimke(ertek,szoveg,TartalycimkeView.this);
-        lay.addView(tartalycimke);
+        tartalycimke=new Tartalycimke(ertek);
+        lay.addView(tartalycimke.createQR(TartalycimkeView.this));
 
         vissza.setOnClickListener(new View.OnClickListener() {
             @Override

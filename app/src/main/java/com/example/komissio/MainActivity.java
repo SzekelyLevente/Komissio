@@ -193,7 +193,7 @@ public class MainActivity extends Activity {
         tcimkek.clear();
         for (int i=0; i<db; i++)
         {
-            Tartalycimke tc=new Tartalycimke("9400"+pontelotti+""+pontutani,"94.00"+pontelotti+"."+pontutani,MainActivity.this);
+            Tartalycimke tc=new Tartalycimke("9400"+pontelotti+""+pontutani);
             char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
             int i2=Integer.parseInt(rszam+"");
             tcimkek.add(tc);
@@ -217,7 +217,6 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,TartalycimkeView.class);
                 i.putExtra("ertek",tcimkek.get(szam).getErtek());
-                i.putExtra("szoveg",tcimkek.get(szam).getTv().getText().toString());
                 i.putExtra("szam",szam);
                 startActivity(i);
                 finish();
