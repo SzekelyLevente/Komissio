@@ -49,8 +49,8 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,torlest,ujkor,nevjegy;
-    private EditText csokbiz,kezdocimke,db,tart;
+    private Button torles,ujkor,nevjegy;
+    private EditText csokbiz,kezdocimke,db;
     private LinearLayout tartalycimkek;
 
     private String csokbizs;
@@ -68,8 +68,6 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         torles=binding.torles;
-        torlest=binding.torlest;
-        tart=binding.tart;
         csokbiz=binding.csokbiz;
         tartalycimkek=binding.tartalycimkek;
         kezdocimke=binding.kezdocimke;
@@ -84,8 +82,6 @@ public class MainActivity extends Activity {
 
         csokbizs= logic.Read("csokibiz");
         csokbiz.setText(csokbizs);
-        tarts=logic.Read("tartalekos");
-        tart.setText(tarts);
         db.setText(logic.Read("db"));
 
         /*
@@ -106,13 +102,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        torlest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tart.setText("");
-            }
-        });
-
         csokbiz.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -123,24 +112,6 @@ public class MainActivity extends Activity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 csokbizs=charSequence.toString();
                 logic.Update("csokibiz",csokbizs);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        tart.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                tarts=charSequence.toString();
-                logic.Update("tartalekos",tarts);
             }
 
             @Override
@@ -197,7 +168,7 @@ public class MainActivity extends Activity {
             char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
             int i2=Integer.parseInt(rszam+"");
             tcimkek.add(tc);
-            tartalycimkek.addView(gombGyartas(i2));
+            tartalycimkek.addView(gombGyartas(i2,i));
             pontelotti++;
             pontutani-=3;
             if (pontutani<0)
@@ -207,7 +178,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    public Button gombGyartas(int szam)
+    public Button gombGyartas(int szam, int index)
     {
         Button btn=new Button(MainActivity.this);
         btn.setText(szam+"");
@@ -216,7 +187,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,TartalycimkeView.class);
-                i.putExtra("ertek",tcimkek.get(szam).getErtek());
+                i.putExtra("ertek",tcimkek.get(index).getErtek());
                 i.putExtra("szam",szam);
                 startActivity(i);
                 finish();

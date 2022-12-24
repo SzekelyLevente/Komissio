@@ -26,19 +26,6 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tart"
-                    android:hint="tartalékos"
-                    android:inputType="number"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/torlest"
-                    android:text="törlés" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:id="@+id/csokbiz"
                     android:hint="csokibiz"
                     android:inputType="number"/>

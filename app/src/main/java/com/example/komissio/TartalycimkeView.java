@@ -55,20 +55,17 @@ public class TartalycimkeView extends Activity {
             }
         });
 
+        hozzaad.setText("hozzáad: "+szam);
+
         hozzaad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(csokibiz.contains(szam+""))
-                {
-                    Toast.makeText(TartalycimkeView.this,"Már létezik itt: "+(csokibiz.indexOf(szam+"")+1),Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    //csokbiz.setText(csokbiz.getText().toString()+""+i2);
-                    csokibiz=csokibiz+""+szam;
-                    logic.Update("csokibiz",csokibiz);
-                    Toast.makeText(TartalycimkeView.this,"Hozzáadva: "+szam,Toast.LENGTH_SHORT).show();
-                }
+                csokibiz=csokibiz+""+szam;
+                logic.Update("csokibiz",csokibiz);
+                Toast.makeText(TartalycimkeView.this,"Hozzáadva: "+szam,Toast.LENGTH_SHORT).show();
+                Intent i=new Intent(TartalycimkeView.this,MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }
