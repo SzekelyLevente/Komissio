@@ -4,7 +4,9 @@ import static android.app.PendingIntent.getActivity;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -60,6 +62,9 @@ public class MainActivity extends Activity {
     private IRepository repository;
     private ILogic logic;
 
+    private AlertDialog alertDialog;
+    private AlertDialog.Builder builder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +85,23 @@ public class MainActivity extends Activity {
 
         tcimkek=new ArrayList<>();
 
+        builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setMessage("Biztosan törölni szeretnél?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                csokbiz.setText("");
+            }
+        });
+        builder.setNegativeButton("Mégsem", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        alertDialog=builder.create();
+
         csokbizs= logic.Read("csokibiz");
         csokbiz.setText(csokbizs);
         db.setText(logic.Read("db"));
@@ -98,7 +120,7 @@ public class MainActivity extends Activity {
         torles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                csokbiz.setText("");
+                alertDialog.show();
             }
         });
 
