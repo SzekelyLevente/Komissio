@@ -69,6 +69,12 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="nyomtatás"
+                    android:id="@+id/nyomtatas"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="névjegy"
                     android:id="@+id/nevjegy"/>
 

@@ -47,6 +47,26 @@ public class Tartalycimke{
         }
     }
 
+    public Bitmap createBitmap()
+    {
+        MultiFormatWriter writer = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = writer.encode(ertek, BarcodeFormat.QR_CODE, 512, 512);
+            BarcodeEncoder mEncoder = new BarcodeEncoder();
+            Bitmap mBitmap = mEncoder.createBitmap(bitMatrix);
+            return mBitmap;
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int getSzam()
+    {
+        int szam=Integer.parseInt(""+ertek.charAt(ertek.length()-2));
+        return szam;
+    }
+
     public String getErtek() {
         return ertek;
     }

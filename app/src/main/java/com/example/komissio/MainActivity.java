@@ -51,7 +51,7 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,ujkor,nevjegy;
+    private Button torles,ujkor,nevjegy,nyomtatas;
     private EditText csokbiz,kezdocimke,db;
     private LinearLayout tartalycimkek;
 
@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
         ujkor=binding.ujkor;
         db=binding.db;
         nevjegy=binding.nevjegy;
+        nyomtatas=binding.nyomtatas;
 
         repository=new Repository(this);
         logic=new Logic(repository);
@@ -171,6 +172,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,Nevjegy.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        nyomtatas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String[] tartalycimkek=new String[tcimkek.size()];
+                for (int i=0;i<tcimkek.size();i++)
+                {
+                    tartalycimkek[i]=tcimkek.get(i).getErtek();
+                }
+                Intent i=new Intent(MainActivity.this,Nyomtatas.class);
+                i.putExtra("tartalycimkek",tartalycimkek);
                 startActivity(i);
                 finish();
             }
