@@ -26,7 +26,6 @@ public class Nyomtatas extends Activity {
     private String[] tartalycimkek;
     private String akt;
     private int index;
-    private Timer timer;
     private Handler timerHandler;
     private Runnable timerRunnable;
 

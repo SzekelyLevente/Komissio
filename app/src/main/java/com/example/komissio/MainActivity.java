@@ -52,11 +52,11 @@ public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
     private Button torles,ujkor,nevjegy,nyomtatas;
-    private EditText csokbiz,kezdocimke,db;
+    private EditText kezdocimke,db;
+    private TextView t1,t2,t3,t4,t5,t6;
     private LinearLayout tartalycimkek;
 
     private String csokbizs;
-    private String tarts;
     private ArrayList<Tartalycimke> tcimkek;
     
     private IRepository repository;
@@ -64,6 +64,8 @@ public class MainActivity extends Activity {
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder builder;
+
+    private String[] doboz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,13 +75,20 @@ public class MainActivity extends Activity {
         setContentView(binding.getRoot());
 
         torles=binding.torles;
-        csokbiz=binding.csokbiz;
         tartalycimkek=binding.tartalycimkek;
         kezdocimke=binding.kezdocimke;
         ujkor=binding.ujkor;
         db=binding.db;
         nevjegy=binding.nevjegy;
         nyomtatas=binding.nyomtatas;
+        doboz=new String[6];
+
+        t1=binding.t1;
+        t2=binding.t2;
+        t3=binding.t3;
+        t4=binding.t4;
+        t5=binding.t5;
+        t6=binding.t6;
 
         repository=new Repository(this);
         logic=new Logic(repository);
@@ -92,7 +101,7 @@ public class MainActivity extends Activity {
         builder.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                csokbiz.setText("");
+                csokbizTorles();
             }
         });
         builder.setNegativeButton("Mégsem", new DialogInterface.OnClickListener() {
@@ -104,7 +113,8 @@ public class MainActivity extends Activity {
         alertDialog=builder.create();
 
         csokbizs= logic.Read("csokibiz");
-        csokbiz.setText(csokbizs);
+        //csokbiz.setText(csokbizs);
+        csokbizBetoltes(csokbizs);
         db.setText(logic.Read("db"));
 
         /*
@@ -125,24 +135,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        csokbiz.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                csokbizs=charSequence.toString();
-                logic.Update("csokibiz",csokbizs);
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
         ujkor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +144,7 @@ public class MainActivity extends Activity {
                     {
                         logic.Update("kezdocimke",kezdocimke.getText().toString());
                         logic.Update("db",db.getText().toString());
-                        csokbiz.setText("");
+                        csokbizTorles();
                         tartalyGyartas(kezdocimke.getText().toString(), Integer.parseInt(db.getText().toString()));
                         kezdocimke.setText("");
                     }
@@ -232,5 +224,52 @@ public class MainActivity extends Activity {
             }
         });
         return btn;
+    }
+
+    public void csokbizBetoltes(String csokbiz)
+    {
+        for (int i=0;i<6;i++)
+        {
+            if(i<csokbiz.length())
+            {
+                doboz[i]=csokbiz.charAt(i)+"";
+                switch (i)
+                {
+                    case 0:
+                        t1.setText(csokbiz.charAt(i)+"");
+                        break;
+                    case 1:
+                        t2.setText(csokbiz.charAt(i)+"");
+                        break;
+                    case 2:
+                        t3.setText(csokbiz.charAt(i)+"");
+                        break;
+                    case 3:
+                        t4.setText(csokbiz.charAt(i)+"");
+                        break;
+                    case 4:
+                        t5.setText(csokbiz.charAt(i)+"");
+                        break;
+                    case 5:
+                        t6.setText(csokbiz.charAt(i)+"");
+                        break;
+                }
+            }
+        }
+    }
+
+    public void csokbizTorles()
+    {
+        for (int i=0;i<doboz.length;i++)
+        {
+            doboz[i]=null;
+        }
+        logic.Update("csokibiz","");
+        t1.setText("n");
+        t2.setText("n");
+        t3.setText("n");
+        t4.setText("n");
+        t5.setText("n");
+        t6.setText("n");
     }
 }

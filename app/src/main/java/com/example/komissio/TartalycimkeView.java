@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ public class TartalycimkeView extends Activity {
     private ActivityTartalycimkeViewBinding binding;
     private Button hozzaad,vissza;
     private LinearLayout lay;
+    private ImageView qr;
     private Tartalycimke tartalycimke;
 
     private IRepository repository;
@@ -35,6 +37,7 @@ public class TartalycimkeView extends Activity {
         hozzaad=binding.hozzaad;
         vissza=binding.vissza;
         lay=binding.lay;
+        qr=binding.qr;
 
         repository=new Repository(this);
         logic=new Logic(repository);
@@ -44,7 +47,7 @@ public class TartalycimkeView extends Activity {
         csokibiz=logic.Read("csokibiz");
 
         tartalycimke=new Tartalycimke(ertek);
-        lay.addView(tartalycimke.createQR(TartalycimkeView.this));
+        qr.setImageBitmap(tartalycimke.createBitmap());
 
         vissza.setOnClickListener(new View.OnClickListener() {
             @Override
