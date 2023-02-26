@@ -8,136 +8,137 @@
     tools:context=".MainActivity"
     tools:deviceIds="wear">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:layout_boxedEdges="all">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t3"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t5"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="n"
+                    android:textSize="25dp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/t6"/>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/torles"
+                android:text="törlés" />
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/kezdocimke"
+                android:inputType="number"
+                android:hint="kezdőcímke"/>
+
+            <EditText
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/db"
+                android:inputType="number"
+                android:hint="db"/>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/ujkor"
+                android:text="új kör"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/tartalycimkek"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t2"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t3"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t4"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t5"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="n"
-                        android:textSize="25dp"
-                        android:layout_margin="5dp"
-                        android:id="@+id/t6"/>
-
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/torles"
-                    android:text="törlés" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/kezdocimke"
-                    android:inputType="number"
-                    android:hint="kezdőcímke"/>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/db"
-                    android:inputType="number"
-                    android:hint="db"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ujkor"
-                    android:text="új kör"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tartalycimkek"
-                    android:orientation="vertical">
-
-
-
-                </LinearLayout>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="nyomtatás"
-                    android:id="@+id/nyomtatas"/>
-
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="névjegy"
-                    android:id="@+id/nevjegy"/>
 
             </LinearLayout>
 
-        </ScrollView>
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="nyomtatás"
+                android:id="@+id/nyomtatas"/>
 
-    </FrameLayout>
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="névjegy"
+                android:id="@+id/nevjegy"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 </androidx.wear.widget.BoxInsetLayout>

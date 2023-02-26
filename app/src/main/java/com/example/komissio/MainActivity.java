@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -35,6 +36,8 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.OrientationHelper;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.komissio.databinding.ActivityMainBinding;
 import com.google.zxing.BarcodeFormat;
@@ -66,6 +69,7 @@ public class MainActivity extends Activity {
     private AlertDialog.Builder builder;
 
     private String[] doboz;
+    private int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +98,15 @@ public class MainActivity extends Activity {
         logic=new Logic(repository);
 
         tcimkek=new ArrayList<>();
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        try {
+            display.getSize(size);
+        } catch (NoSuchMethodError err) {
+            display.getSize(size);
+        }
+        width = size.x;
 
         builder=new AlertDialog.Builder(MainActivity.this);
         builder.setMessage("Biztosan törölni szeretnél?");
@@ -198,7 +211,19 @@ public class MainActivity extends Activity {
             char rszam=(pontelotti+"").charAt((pontelotti+"").length()-1);
             int i2=Integer.parseInt(rszam+"");
             tcimkek.add(tc);
-            tartalycimkek.addView(gombGyartas(i2,i));
+            LinearLayout ll=null;
+            if(i%2==0)
+            {
+                ll=new LinearLayout(MainActivity.this);
+                ll.setId(i/2);
+                ll.setOrientation(LinearLayout.HORIZONTAL);
+                tartalycimkek.addView(ll);
+            }
+            else
+            {
+                ll=findViewById(i/2);
+            }
+            ll.addView(gombGyartas(i2,i));
             pontelotti++;
             pontutani-=3;
             if (pontutani<0)
@@ -213,6 +238,9 @@ public class MainActivity extends Activity {
         Button btn=new Button(MainActivity.this);
         btn.setText(szam+"");
         btn.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(width/2),
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        btn.setLayoutParams(lp);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
