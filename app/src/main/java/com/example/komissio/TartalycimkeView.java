@@ -12,10 +12,13 @@ import android.widget.Toast;
 
 import com.example.komissio.databinding.ActivityTartalycimkeViewBinding;
 
+import java.util.ArrayList;
+
 public class TartalycimkeView extends Activity {
 
     private ActivityTartalycimkeViewBinding binding;
     private Button hozzaad,vissza;
+    private TextView seged;
     private LinearLayout lay;
     private ImageView qr;
     private Tartalycimke tartalycimke;
@@ -36,6 +39,7 @@ public class TartalycimkeView extends Activity {
 
         hozzaad=binding.hozzaad;
         vissza=binding.vissza;
+        seged=binding.seged;
         lay=binding.lay;
         qr=binding.qr;
 
@@ -48,6 +52,27 @@ public class TartalycimkeView extends Activity {
 
         tartalycimke=new Tartalycimke(ertek);
         qr.setImageBitmap(tartalycimke.createBitmap());
+
+        ArrayList<Integer> helyek=new ArrayList<>();
+        for (int i = 0; i < csokibiz.length(); i++) {
+            if(Integer.parseInt(csokibiz.charAt(i)+"")==szam)
+            {
+                helyek.add(i+1);
+            }
+        }
+
+        if(helyek.size()!=0)
+        {
+            String szoveg="Van már itt: ";
+            for (int i = 0; i < helyek.size(); i++) {
+                szoveg+=helyek.get(i)+"";
+                if(i!=helyek.size()-1)
+                {
+                    szoveg+=",";
+                }
+            }
+            seged.setText(szoveg);
+        }
 
         vissza.setOnClickListener(new View.OnClickListener() {
             @Override
