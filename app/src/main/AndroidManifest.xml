@@ -27,9 +27,13 @@
             android:value="true" />
 
         <activity
+            android:name=".Statisztika"
+            android:exported="false"
+            android:label="@string/title_activity_statisztika"></activity>
+        <activity
             android:name=".Nyomtatas"
             android:exported="false"
-            android:label="@string/title_activity_nyomtatas"></activity>
+            android:label="@string/title_activity_nyomtatas" />
         <activity
             android:name=".TartalycimkeView"
             android:exported="false"

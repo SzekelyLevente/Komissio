@@ -125,6 +125,12 @@
             <Button
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
+                android:text="statisztika"
+                android:id="@+id/statisztika"/>
+
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
                 android:text="nyomtatás"
                 android:id="@+id/nyomtatas"/>
 

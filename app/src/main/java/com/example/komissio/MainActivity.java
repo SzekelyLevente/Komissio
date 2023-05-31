@@ -54,7 +54,7 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,ujkor,nevjegy,nyomtatas;
+    private Button torles,ujkor,nevjegy,nyomtatas,stat;
     private EditText kezdocimke,db;
     private TextView t1,t2,t3,t4,t5,t6;
     private LinearLayout tartalycimkek;
@@ -69,7 +69,7 @@ public class MainActivity extends Activity {
     private AlertDialog.Builder builder;
 
     private String[] doboz;
-    private int width;
+    private int width,rendelesdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +82,7 @@ public class MainActivity extends Activity {
         tartalycimkek=binding.tartalycimkek;
         kezdocimke=binding.kezdocimke;
         ujkor=binding.ujkor;
+        stat=binding.statisztika;
         db=binding.db;
         nevjegy=binding.nevjegy;
         nyomtatas=binding.nyomtatas;
@@ -130,11 +131,15 @@ public class MainActivity extends Activity {
         csokbizBetoltes(csokbizs);
         db.setText(logic.Read("db"));
 
-        /*
-        editor.putString("kezdocimke","56675401");
-        editor.apply();
-
-         */
+        if(logic.Contains("rendelesdb"))
+        {
+            rendelesdb=Integer.parseInt(logic.Read("rendelesdb"));
+        }
+        else
+        {
+            rendelesdb=0;
+            logic.Update("rendelesdb","0");
+        }
 
         if(logic.Contains("kezdocimke") && logic.Contains("db"))
         {
@@ -157,6 +162,8 @@ public class MainActivity extends Activity {
                     {
                         logic.Update("kezdocimke",kezdocimke.getText().toString());
                         logic.Update("db",db.getText().toString());
+                        rendelesdb+=Integer.parseInt(db.getText().toString());
+                        logic.Update("rendelesdb",(rendelesdb+""));
                         csokbizTorles();
                         tartalyGyartas(kezdocimke.getText().toString(), Integer.parseInt(db.getText().toString()));
                         kezdocimke.setText("");
@@ -192,6 +199,15 @@ public class MainActivity extends Activity {
                 }
                 Intent i=new Intent(MainActivity.this,Nyomtatas.class);
                 i.putExtra("tartalycimkek",tartalycimkek);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        stat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,Statisztika.class);
                 startActivity(i);
                 finish();
             }
