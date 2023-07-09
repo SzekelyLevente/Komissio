@@ -19,7 +19,7 @@ public class Logic implements ILogic{
         {
             throw new IllegalArgumentException("8 karakter kell!!");
         }
-        if(kulcs=="db" && Integer.parseInt(ertek) < 1 || Integer.parseInt(ertek) >10)
+        if(kulcs=="db" && (Integer.parseInt(ertek) < 1 || Integer.parseInt(ertek) > 10))
         {
             throw new IllegalArgumentException("Csak 1 és 10 közé eső számot adjon meg!");
         }
