@@ -228,16 +228,16 @@ public class MainActivity extends Activity {
             int i2=Integer.parseInt(rszam+"");
             tcimkek.add(tc);
             LinearLayout ll=null;
-            if(i%2==0)
+            if(i%3==0)
             {
                 ll=new LinearLayout(MainActivity.this);
-                ll.setId(i/2);
+                ll.setId(i/3);
                 ll.setOrientation(LinearLayout.HORIZONTAL);
                 tartalycimkek.addView(ll);
             }
             else
             {
-                ll=findViewById(i/2);
+                ll=findViewById(i/3);
             }
             ll.addView(gombGyartas(i2,i));
             pontelotti++;
@@ -254,7 +254,7 @@ public class MainActivity extends Activity {
         Button btn=new Button(MainActivity.this);
         btn.setText(szam+"");
         btn.setGravity(Gravity.CENTER);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(width/2),
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams((int)(width/3),
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         btn.setLayoutParams(lp);
         btn.setOnClickListener(new View.OnClickListener() {
