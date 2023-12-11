@@ -25,14 +25,14 @@
                 android:gravity="center">
 
                 <ImageView
-                    android:id="@+id/tartalycimke"
+                    android:id="@+id/nyomtato"
                     android:layout_width="90dp"
                     android:layout_height="90dp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/szam"
+                    android:id="@+id/nyomtatoSzam"
                     android:textAlignment="center"/>
 
                 <Button
@@ -40,6 +40,18 @@
                     android:layout_height="wrap_content"
                     android:text="vissza"
                     android:id="@+id/vissza"/>
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/nyomtatoInput"
+                    android:hint="új nyomtató szám"/>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/beallit"
+                    android:text="beállít"/>
 
             </LinearLayout>
 

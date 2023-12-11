@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="verzió:\n2.0"/>
+                android:text="verzió:\n2.1"/>
 
             <TextView
                 android:layout_width="match_parent"

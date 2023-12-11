@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,15 +20,15 @@ import java.util.TimerTask;
 public class Nyomtatas extends Activity {
 
     private ActivityNyomtatasBinding binding;
-    private ImageView tartalycimke;
-    private Button vissza;
-    private TextView szam;
+    private ImageView nyomtato;
+    private Button vissza, beallit;
+    private TextView nyomtatoSzam;
+    private EditText nyomtatoInput;
 
-    private String[] tartalycimkek;
-    private String akt;
-    private int index;
-    private Handler timerHandler;
-    private Runnable timerRunnable;
+    private IRepository repo;
+    private ILogic logic;
+
+    private Tartalycimke tc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,38 +37,36 @@ public class Nyomtatas extends Activity {
         binding = ActivityNyomtatasBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        tartalycimke=binding.tartalycimke;
-        vissza=binding.vissza;
-        szam=binding.szam;
+        nyomtato=findViewById(R.id.nyomtato);
+        vissza=findViewById(R.id.vissza);
+        beallit=findViewById(R.id.beallit);
+        nyomtatoSzam=findViewById(R.id.nyomtatoSzam);
+        nyomtatoInput=findViewById(R.id.nyomtatoInput);
 
-        tartalycimkek=getIntent().getStringArrayExtra("tartalycimkek");
-        index=tartalycimkek.length;
-        //init(index);
+        this.repo=new Repository(Nyomtatas.this);
+        this.logic=new Logic(repo);
 
-        timerHandler = new Handler();
-        timerRunnable = new Runnable() {
+        init();
 
+        beallit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                if(index==0)
+            public void onClick(View view) {
+                if(!nyomtatoInput.getText().toString().equals(""))
                 {
-                    timerHandler.removeCallbacks(timerRunnable);
-                    Toast.makeText(Nyomtatas.this,"Nyomtatás vége",Toast.LENGTH_SHORT).show();
+                    logic.Update("nyomtato",nyomtatoInput.getText().toString());
+                    init();
+                    Toast.makeText(Nyomtatas.this,"Nyomtató száma átállítva!",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
-                    index--;
-                    init(index);
-                    timerHandler.postDelayed(this, 2000);
+                    Toast.makeText(Nyomtatas.this,"Írjon be egy értéket!",Toast.LENGTH_SHORT).show();
                 }
             }
-        };
-        timerHandler.postDelayed(timerRunnable, 0);
+        });
 
         vissza.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                timerHandler.removeCallbacks(timerRunnable);
                 Intent i=new Intent(Nyomtatas.this,MainActivity.class);
                 startActivity(i);
                 finish();
@@ -75,11 +74,16 @@ public class Nyomtatas extends Activity {
         });
     }
 
-    public void init(int index)
+    public void init()
     {
-        akt=tartalycimkek[index];
-        Tartalycimke tc=new Tartalycimke(akt);
-        tartalycimke.setImageBitmap(tc.createBitmap());
-        szam.setText(tc.getSzam()+"");
+        if(!logic.Contains("nyomtato"))
+        {
+            logic.Update("nyomtato","nyomtato");
+        }
+
+        String nyomtato=logic.Read("nyomtato");
+        tc=new Tartalycimke(nyomtato);
+        this.nyomtato.setImageBitmap(tc.createBitmap());
+        nyomtatoSzam.setText(nyomtato);
     }
 }

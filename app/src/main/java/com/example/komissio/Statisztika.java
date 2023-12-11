@@ -59,7 +59,8 @@ public class Statisztika extends Activity {
         rendelesdb=Integer.parseInt(logic.Read("rendelesdb"));
 
         String s="";
-        s+="kiszedett rendelések száma: "+rendelesdb+"db";
+        s+="kiszedett rendelések száma: "+rendelesdb+"db\n";
+        s+="körök száma: "+(rendelesdb/10);
         text.setText(s);
     }
 }
