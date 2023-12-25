@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,10 +55,11 @@ import java.util.Locale;
 public class MainActivity extends Activity {
 
     private ActivityMainBinding binding;
-    private Button torles,ujkor,nevjegy,nyomtatas,stat;
+    private Button torles,ujkor,nevjegy,nyomtatas,stat,p;
     private EditText kezdocimke,db;
     private TextView t1,t2,t3,t4,t5,t6;
     private LinearLayout tartalycimkek;
+    private ScrollView sw;
 
     private String csokbizs;
     private ArrayList<Tartalycimke> tcimkek;
@@ -69,7 +71,7 @@ public class MainActivity extends Activity {
     private AlertDialog.Builder builder;
 
     private String[] doboz;
-    private int width,rendelesdb;
+    private int width,rendelesdb,id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,8 +86,10 @@ public class MainActivity extends Activity {
         ujkor=binding.ujkor;
         stat=binding.statisztika;
         db=binding.db;
+        p=binding.p;
         nevjegy=binding.nevjegy;
         nyomtatas=binding.nyomtatas;
+        sw=binding.sw;
         doboz=new String[6];
 
         t1=binding.t1;
@@ -150,6 +154,16 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 alertDialog.show();
+            }
+        });
+
+        p.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(logic.Contains("kezdocimke"))
+                {
+                    sw.scrollToDescendant(findViewById(id));
+                }
             }
         });
 
@@ -247,6 +261,7 @@ public class MainActivity extends Activity {
                 pontutani+=10;
             }
         }
+        id=(db-1)/3;
     }
 
     public Button gombGyartas(int szam, int index)
